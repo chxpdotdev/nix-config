@@ -8,6 +8,7 @@
     inputs.determinate.nixosModules.default
 
     "${nixosModules}/common.nix"
+    "${nixosModules}/misc/eda.nix"
     "${nixosModules}/misc/wsl.nix"
     "${nixosModules}/services/vscode-server.nix"
   ];

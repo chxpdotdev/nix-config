@@ -1,0 +1,11 @@
+{
+  inputs,
+  pkgs,
+  ...
+}: {
+  nixpkgs.overlays = [
+    inputs.nix-eda.overlays.default
+  ];
+
+  environment.systemPackages = with pkgs; [magic netgen ngspice klayout xschem gtkwave] ++ [inputs.ciel.packages.${pkgs.system}.ciel];
+}

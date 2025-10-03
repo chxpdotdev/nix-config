@@ -83,6 +83,13 @@
       ref = "nixpkgs-unstable";
     };
 
+    ciel = {
+      type = "github";
+      owner = "fossi-foundation";
+      repo = "ciel";
+      inputs.nix-eda.follows = "nix-eda";
+    };
+
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
 
     disko = {
@@ -103,6 +110,12 @@
       owner = "nix-community";
       repo = "home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-eda = {
+      type = "github";
+      owner = "fossi-foundation";
+      repo = "nix-eda";
     };
 
     nix-index-database = {
