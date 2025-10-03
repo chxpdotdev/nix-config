@@ -83,7 +83,7 @@
       ref = "nixpkgs-unstable";
     };
 
-    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/0.1";
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
 
     disko = {
       type = "github";
@@ -95,7 +95,7 @@
       type = "github";
       owner = "ghostty-org";
       repo = "ghostty";
-      inputs.nixpkgs-unstable.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     home = {

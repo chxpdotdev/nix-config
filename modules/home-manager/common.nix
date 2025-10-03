@@ -35,7 +35,6 @@
         statix
         trash-cli
         xdg-user-dirs
-        zoom-us
         ;
 
       inherit
