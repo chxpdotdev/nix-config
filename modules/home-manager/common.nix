@@ -30,6 +30,7 @@
         deadnix
         moonlight-qt
         nh
+        nixd
         spot
         statix
         trash-cli
