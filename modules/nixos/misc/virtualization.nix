@@ -1,22 +1,10 @@
-{
-  pkgs,
-  userConfig,
-  ...
-}: {
-  services.spice-vdagentd.enable = true;
-  users.groups.libvirtd.members = ["${userConfig.name}"];
+{pkgs, ...}: {
+  environment.systemPackages = [pkgs.distrobox];
 
   virtualisation = {
-    libvirtd = {
+    podman = {
       enable = true;
-
-      qemu = {
-        swtpm.enable = true;
-        ovmf.enable = true;
-        ovmf.packages = [pkgs.OVMFFull.fd];
-      };
+      dockerCompat = true;
     };
-
-    spiceUSBRedirection.enable = true;
   };
 }
