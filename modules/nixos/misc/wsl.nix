@@ -19,5 +19,6 @@
     defaultUser = "${userConfig.name}";
     startMenuLaunchers = true;
     docker-desktop.enable = false;
+    usbip.enable = true;
   };
 }
