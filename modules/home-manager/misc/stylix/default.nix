@@ -49,11 +49,10 @@
       bat.enable = true;
       eog.enable = true;
       ghostty.enable = true;
-      gnome.enable = true;
 
       gtk = {
-        enable = true;
-        flatpakSupport.enable = true;
+        enable = false;
+        flatpakSupport.enable = false;
       };
 
       nixcord.enable = false;
