@@ -2,8 +2,8 @@
   pkgs ? (import ../nixpkgs.nix) {},
   inputs,
 }: {
-  sfmonoNerdFontLig = pkgs.callPackage ./sfmonoNerdFontLig.nix {
-    src = inputs.sfmonoNerdFontLig-src;
+  sf-mono-liga-bin = pkgs.callPackage ./sf-mono-liga-bin.nix {
+    src = inputs.sf-mono-liga-bin-src;
     version = "999-master";
   };
 }

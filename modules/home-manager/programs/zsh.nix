@@ -9,7 +9,6 @@
     autocd = true;
     autosuggestion.enable = true;
     enableCompletion = true;
-    enableVteIntegration = true;
     syntaxHighlighting.enable = true;
     dotDir = "${config.home.homeDirectory}/.config/zsh";
 
@@ -17,7 +16,6 @@
       cat = "${lib.getExe pkgs.bat} --color always --plain";
       grep = "grep --color=auto";
       c = "clear";
-      rm = "${pkgs.trash-cli}/bin/trash-put";
     };
 
     initContent = ''

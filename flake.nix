@@ -19,7 +19,39 @@
 
     forAllSystems = nixpkgs.lib.genAttrs [
       "x86_64-linux"
+      "aarch64-darwin"
     ];
+
+    mkDarwinConfiguration = system: hostname: username:
+      inputs.nix-darwin.lib.darwinSystem {
+        inherit system;
+
+        specialArgs = {
+          inherit inputs outputs hostname;
+          userConfig = users.${username};
+          darwinModules = "${self}/modules/darwin";
+        };
+
+        modules = [
+          ./hosts/${hostname}
+          home.darwinModules.home-manager
+          {
+            home-manager = {
+              backupFileExtension = "hm-back";
+
+              extraSpecialArgs = {
+                inherit inputs outputs;
+                userConfig = users.${username};
+                nhModules = "${self}/modules/home-manager";
+              };
+
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.${username}.imports = [(./. + "/home-manager/${username}/${hostname}/home.nix")];
+            };
+          }
+        ];
+      };
 
     # Function for NixOS system configuration
     mkNixosConfiguration = hostname: username:
@@ -50,7 +82,10 @@
         ];
       };
   in {
-    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
+    formatter = {
+      x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
+      aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.alejandra;
+    };
 
     packages = forAllSystems (
       system: let
@@ -72,18 +107,20 @@
     nixosConfigurations = {
       nixos-wsl = mkNixosConfiguration "nixos-wsl" "chxpdotdev";
     };
+
+    darwinConfigurations = {
+      mbpro = mkDarwinConfiguration "aarch64-darwin" "mbpro" "chxpdotdev";
+    };
   };
 
   inputs = {
-    # Nixpkgs Repos
-    nixpkgs = {
-      type = "github";
-      owner = "NixOS";
-      repo = "nixpkgs";
-      ref = "nixpkgs-unstable";
-    };
+    # Nixpkgs unstable
+    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
 
-    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
+    determinate = {
+      url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     disko = {
       type = "github";
@@ -102,6 +139,13 @@
       type = "github";
       owner = "nix-community";
       repo = "home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-darwin = {
+      type = "github";
+      owner = "nix-darwin";
+      repo = "nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -169,7 +213,7 @@
     };
 
     # Other Non-flake Inputs
-    sfmonoNerdFontLig-src = {
+    sf-mono-liga-bin-src = {
       url = "github:shaunsingh/SFMono-Nerd-Font-Ligaturized";
       flake = false;
     };
