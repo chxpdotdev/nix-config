@@ -118,7 +118,7 @@
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
 
     determinate = {
-      url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
+      url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
