@@ -115,17 +115,23 @@
 
   inputs = {
     # Nixpkgs unstable
-    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
-
-    determinate = {
-      url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
-      inputs.nixpkgs.follows = "nixpkgs";
+    nixpkgs = {
+      type = "github";
+      owner = "NixOS";
+      repo = "nixpkgs";
+      ref = "nixpkgs-unstable";
     };
 
     disko = {
       type = "github";
       owner = "nix-community";
       repo = "disko";
+    };
+
+    emacs-overlay = {
+      type = "github";
+      owner = "nix-community";
+      repo = "emacs-overlay";
     };
 
     ghostty = {
@@ -147,6 +153,12 @@
       owner = "nix-darwin";
       repo = "nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-homebrew = {
+      type = "github";
+      owner = "zhaofengli";
+      repo = "nix-homebrew";
     };
 
     nix-index-database = {
@@ -180,12 +192,6 @@
       repo = "nixGL";
     };
 
-    nixpkgs-f2k = {
-      type = "github";
-      owner = "fortuneteller2k";
-      repo = "nixpkgs-f2k";
-    };
-
     nixos-wsl = {
       type = "github";
       owner = "nix-community";
@@ -195,7 +201,7 @@
 
     nixvim = {
       type = "github";
-      owner = "nix-community";
+      owner = "chxpdotdev";
       repo = "nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -213,6 +219,11 @@
     };
 
     # Other Non-flake Inputs
+    homebrew-emacs-plus-src = {
+      url = "github:d12frosted/homebrew-emacs-plus";
+      flake = false;
+    };
+
     sf-mono-liga-bin-src = {
       url = "github:shaunsingh/SFMono-Nerd-Font-Ligaturized";
       flake = false;

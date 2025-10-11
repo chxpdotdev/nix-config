@@ -15,7 +15,5 @@
       inherit (prev) system;
       config = prev.config // {allowBroken = true;};
     };
-
-    ghostty = inputs.ghostty.packages.${_final.system}.default;
   };
 }
