@@ -79,6 +79,9 @@
   };
 
   programs.zsh.enable = true;
+  # touchid for sudo authentication
+  security.pam.services.sudo_local.touchIdAuth = true;
+  system.primaryUser = "${userConfig.name}";
 
   users.users.${userConfig.name} = {
     description = userConfig.fullName;

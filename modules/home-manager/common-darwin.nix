@@ -1,4 +1,5 @@
 {
+  inputs,
   outputs,
   lib,
   config,
@@ -11,9 +12,13 @@
     ./programs/direnv.nix
     ./programs/eza.nix
     ./programs/git.nix
+    ./programs/nixcord.nix
     ./programs/nixvim.nix
     ./programs/starship.nix
+    ./programs/vscode.nix
     ./programs/zsh.nix
+
+    inputs.mac-app-util.homeManagerModules.default
   ];
 
   home = {
@@ -25,17 +30,6 @@
         nh
         nixd
         statix
-        ;
-
-      inherit
-        (pkgs.luajitPackages)
-        jsregexp
-        ;
-
-      inherit
-        (pkgs.nodePackages_latest)
-        prettier
-        prettier_d_slim
         ;
     };
 

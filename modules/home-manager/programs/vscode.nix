@@ -4,24 +4,30 @@
   lib,
   pkgs,
   ...
-}: let
-  marketplace-extensions = with inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace; [
-    koihik.vscode-lua-format
-    piousdeer.adwaita-theme
-    rvest.vs-code-prettier-eslint
-    sndst00m.markdown-github-dark-pack
-  ];
-in {
+}:
+let
+  marketplace-extensions =
+    with inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace; [
+      koihik.vscode-lua-format
+      rvest.vs-code-prettier-eslint
+      sndst00m.markdown-github-dark-pack
+    ];
+in
+{
   programs.vscode = {
     enable = true;
     mutableExtensionsDir = true;
 
     profiles.default = {
-      extensions = with pkgs.vscode-extensions;
+      extensions =
+        with pkgs.vscode-extensions;
         [
           esbenp.prettier-vscode
+          github.github-vscode-theme
+          github.copilot-chat
           jnoortheen.nix-ide
           kamadorueda.alejandra
+          mshr-h.veriloghdl
           ms-vscode.cpptools
           ms-vscode-remote.vscode-remote-extensionpack
           mkhl.direnv
@@ -46,6 +52,8 @@ in {
 
         editor = {
           cursorBlinking = "smooth";
+          fontFamily = "'Liga SFMono Nerd Font', Monaco, 'Courier New', monospace";
+          fontLigatures = true;
           formatOnSave = true;
           lineNumbers = "on";
           minimap.enabled = false;
@@ -58,22 +66,23 @@ in {
           };
         };
 
-        nix.serverPath = "${pkgs.nil}/bin/nil";
+        nix.serverPath = "${lib.getExe pkgs.nixd}";
 
         terminal.integrated = {
           cursorBlinking = true;
           cursorStyle = "line";
+          fontLigatures.enabled = true;
           smoothScrolling = true;
         };
 
-        window = {
-          menuBarVisibility = "toggle";
-          nativeTabs = true;
-          titleBarStyle = "custom";
-        };
+        # window = {
+        #   menuBarVisibility = "toggle";
+        #   nativeTabs = true;
+        #   titleBarStyle = "custom";
+        # };
 
         workbench = {
-          colorTheme = lib.mkForce "Adwaita Dark & default syntax highlighting";
+          colorTheme = lib.mkForce "GitHub Dark Default";
           list.smoothScrolling = true;
           smoothScrolling = true;
         };

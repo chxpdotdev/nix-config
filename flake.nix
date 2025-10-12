@@ -115,118 +115,51 @@
 
   inputs = {
     # Nixpkgs unstable
-    nixpkgs = {
-      type = "github";
-      owner = "NixOS";
-      repo = "nixpkgs";
-      ref = "nixpkgs-unstable";
-    };
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    disko.url = "github:nix-community/disko";
+    emacs-overlay.url = "github:nix-community/emacs-overlay";
 
-    disko = {
-      type = "github";
-      owner = "nix-community";
-      repo = "disko";
-    };
+    ghostty.url = "github:ghostty-org/ghostty";
+    ghostty.inputs.nixpkgs.follows = "nixpkgs";
 
-    emacs-overlay = {
-      type = "github";
-      owner = "nix-community";
-      repo = "emacs-overlay";
-    };
+    home.url = "github:nix-community/home-manager";
+    home.inputs.nixpkgs.follows = "nixpkgs";
 
-    ghostty = {
-      type = "github";
-      owner = "ghostty-org";
-      repo = "ghostty";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    mac-app-util.url = "github:hraban/mac-app-util";
 
-    home = {
-      type = "github";
-      owner = "nix-community";
-      repo = "home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nix-darwin.url = "github:nix-darwin/nix-darwin";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
-    nix-darwin = {
-      type = "github";
-      owner = "nix-darwin";
-      repo = "nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
 
-    nix-homebrew = {
-      type = "github";
-      owner = "zhaofengli";
-      repo = "nix-homebrew";
-    };
+    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
-    nix-index-database = {
-      type = "github";
-      owner = "nix-community";
-      repo = "nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
+    nixcord.url = "github:kaylorben/nixcord";
+    nixgl.url = "github:nix-community/nixGL";
 
-    nix-vscode-extensions = {
-      type = "github";
-      owner = "nix-community";
-      repo = "nix-vscode-extensions";
-    };
+    nixos-wsl.url = "github:nix-community/NixOS-WSL";
+    nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
 
-    nixos-hardware = {
-      type = "github";
-      owner = "NixOS";
-      repo = "nixos-hardware";
-    };
+    nixvim.url = "github:chxpdotdev/nixvim";
+    nixvim.inputs.nixpkgs.follows = "nixpkgs";
 
-    nixcord = {
-      type = "github";
-      owner = "kaylorben";
-      repo = "nixcord";
-    };
+    stylix.url = "github:danth/stylix";
+    vscode-server.url = "github:nix-community/nixos-vscode-server";
 
-    nixgl = {
-      type = "github";
-      owner = "nix-community";
-      repo = "nixGL";
-    };
+    # Non-flakes
+    homebrew-cask-src.url = "github:homebrew/homebrew-cask";
+    homebrew-cask-src.flake = false;
 
-    nixos-wsl = {
-      type = "github";
-      owner = "nix-community";
-      repo = "NixOS-WSL";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    homebrew-core-src.url = "github:homebrew/homebrew-core";
+    homebrew-core-src.flake = false;
 
-    nixvim = {
-      type = "github";
-      owner = "chxpdotdev";
-      repo = "nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    homebrew-emacs-plus-src.url = "github:d12frosted/homebrew-emacs-plus";
+    homebrew-emacs-plus-src.flake = false;
 
-    stylix = {
-      type = "github";
-      owner = "danth";
-      repo = "stylix";
-    };
-
-    vscode-server = {
-      type = "github";
-      owner = "nix-community";
-      repo = "nixos-vscode-server";
-    };
-
-    # Other Non-flake Inputs
-    homebrew-emacs-plus-src = {
-      url = "github:d12frosted/homebrew-emacs-plus";
-      flake = false;
-    };
-
-    sf-mono-liga-bin-src = {
-      url = "github:shaunsingh/SFMono-Nerd-Font-Ligaturized";
-      flake = false;
-    };
+    sf-mono-liga-bin-src.url = "github:shaunsingh/SFMono-Nerd-Font-Ligaturized";
+    sf-mono-liga-bin-src.flake = false;
   };
 }
