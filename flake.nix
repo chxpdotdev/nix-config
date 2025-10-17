@@ -1,5 +1,5 @@
 {
-  description = "chxpdotdev's nix config";
+  description = "chxp's nix config";
 
   outputs = {
     self,
@@ -155,9 +155,6 @@
 
     homebrew-core-src.url = "github:homebrew/homebrew-core";
     homebrew-core-src.flake = false;
-
-    homebrew-emacs-plus-src.url = "github:d12frosted/homebrew-emacs-plus";
-    homebrew-emacs-plus-src.flake = false;
 
     sf-mono-liga-bin-src.url = "github:shaunsingh/SFMono-Nerd-Font-Ligaturized";
     sf-mono-liga-bin-src.flake = false;

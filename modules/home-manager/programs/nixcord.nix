@@ -8,9 +8,23 @@
 
     config = {
       frameless = true;
+
+      plugins = {
+        fakeNitro.enable = true;
+        mentionAvatars.enable = true;
+        typingTweaks.enable = true;
+        whoReacted.enable = true;
+      };
     };
 
-    discord.enable = true;
-    vesktop.enable = false;
+    discord.enable = false;
+    dorion.enable = false;
+    vesktop.enable = true;
+
+    extraConfig = {
+      enableSplashScreen = false;
+      hardwareAcceleration = true;
+      hardwareVideoAcceleration = true;
+    };
   };
 }

@@ -24,6 +24,7 @@ in
         [
           esbenp.prettier-vscode
           github.github-vscode-theme
+          github.codespaces
           github.copilot-chat
           jnoortheen.nix-ide
           kamadorueda.alejandra

@@ -19,7 +19,6 @@
     taps = {
       "homebrew/homebrew-cask" = inputs.homebrew-cask-src;
       "homebrew/homebrew-core" = inputs.homebrew-core-src;
-      "d12frosted/homebrew-emacs-plus" = inputs.homebrew-emacs-plus-src;
     };
 
     # With mutableTaps disabled, taps can no longer be added imperatively with `brew tap`.
@@ -44,15 +43,13 @@
       "chatgpt"
       "ghostty"
       "microsoft-onenote"
-      "orion"
       "proton-mail-bridge"
       "steam"
+      "zen"
       "zoom"
     ];
 
     masApps = {
-      #  "hidden-bar"   = 1452453066;
-      #  "wireguard"    = 1451685025;
       "Xcode" = 497799835;
     };
 
