@@ -4,6 +4,9 @@
 {lib, ...}: let
   userSubmodule = lib.types.submodule {
     options = {
+      serverusername = lib.mkOption {
+        type = lib.types.str;
+      };
       username = lib.mkOption {
         type = lib.types.str;
       };

@@ -72,6 +72,7 @@ in {
           cursorStyle = "line";
           fontLigatures.enabled = true;
           smoothScrolling = true;
+          stickyScroll.enabled = false;
         };
 
         # window = {

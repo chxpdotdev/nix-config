@@ -19,7 +19,7 @@
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     nixcord.url = "github:kaylorben/nixcord";
-    vertex.url = "github:juspay/vertex";
+    vscode-server.url = "github:nix-community/nixos-vscode-server";
 
     # Nixvim inputs
     nixvim.url = "github:nix-community/nixvim";
