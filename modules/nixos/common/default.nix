@@ -39,6 +39,7 @@ in {
         "https://nix-cache.fossi-foundation.org"
         "https://nix-community.cachix.org"
         "https://fortuneteller2k.cachix.org"
+        "https://cache.saumon.network/proxmox-nixos"
       ];
 
       trusted-public-keys = [
@@ -47,6 +48,7 @@ in {
         "nix-cache.fossi-foundation.org:3+K59iFwXqKsL7BNu6Guy0v+uTlwsxYQxjspXzqLYQs="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "fortuneteller2k.cachix.org-1:kXXNkMV5yheEQwT0I4XYh1MaCSz+qg72k8XAi2PthJI="
+        "proxmox-nixos:D9RYSWpQQC/msZUWphOY2I5RLH5Dd6yQcaHIuug7dWM="
       ];
     };
   };
