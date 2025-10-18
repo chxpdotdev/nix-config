@@ -57,7 +57,7 @@
         ];
         python = ["black"];
         lua = ["stylua"];
-        nix = ["nixfmt"];
+        nix = ["alejandra"];
         markdown = [
           [
             "prettierd"
