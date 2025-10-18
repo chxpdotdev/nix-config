@@ -18,7 +18,10 @@ in {
     variables.EDITOR = "${lib.getExe pkgs.vim}";
   };
 
-  fonts.packages = with pkgs; [sf-mono-liga-bin];
+  fonts.packages = [
+    pkgs.nerd-fonts.intone-mono
+    pkgs.sf-mono-liga-bin
+  ];
 
   nix = {
     package = lib.mkDefault pkgs.lixPackageSets.stable.lix;
