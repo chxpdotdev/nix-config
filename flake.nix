@@ -1,153 +1,43 @@
 {
-  description = "chxp's nix config";
-
-  outputs = {
-    self,
-    nixpkgs,
-    home,
-    ...
-  } @ inputs: let
-    inherit (self) outputs;
-
-    users = {
-      chxpdotdev = {
-        email = "33443763+chxpdotdev@users.noreply.github.com";
-        fullName = "chxp";
-        name = "chxpdotdev";
-      };
-    };
-
-    forAllSystems = nixpkgs.lib.genAttrs [
-      "x86_64-linux"
-      "aarch64-darwin"
-    ];
-
-    mkDarwinConfiguration = system: hostname: username:
-      inputs.nix-darwin.lib.darwinSystem {
-        inherit system;
-
-        specialArgs = {
-          inherit inputs outputs hostname;
-          userConfig = users.${username};
-          darwinModules = "${self}/modules/darwin";
-        };
-
-        modules = [
-          ./hosts/${hostname}
-          home.darwinModules.home-manager
-          {
-            home-manager = {
-              backupFileExtension = "hm-back";
-
-              extraSpecialArgs = {
-                inherit inputs outputs;
-                userConfig = users.${username};
-                nhModules = "${self}/modules/home-manager";
-              };
-
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users.${username}.imports = [(./. + "/home-manager/${username}/${hostname}/home.nix")];
-            };
-          }
-        ];
-      };
-
-    # Function for NixOS system configuration
-    mkNixosConfiguration = hostname: username:
-      nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs outputs hostname;
-          userConfig = users.${username};
-          nixosModules = "${self}/modules/nixos";
-        };
-
-        modules = [
-          ./hosts/${hostname}
-          home.nixosModules.home-manager
-
-          {
-            home-manager = {
-              backupFileExtension = "hm-back";
-
-              extraSpecialArgs = {
-                inherit inputs outputs;
-                userConfig = users.${username};
-                nhModules = "${self}/modules/home-manager";
-              };
-
-              users.${username}.imports = [(./. + "/home-manager/${username}/${hostname}/home.nix")];
-            };
-          }
-        ];
-      };
-  in {
-    formatter = {
-      x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
-      aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.alejandra;
-    };
-
-    packages = forAllSystems (
-      system: let
-        pkgs = nixpkgs.legacyPackages.${system};
-      in
-        import ./pkgs {inherit pkgs inputs;}
-    );
-
-    # Devshell for bootstrapping
-    devShells = forAllSystems (
-      system: let
-        pkgs = nixpkgs.legacyPackages.${system};
-      in
-        import ./shell.nix {inherit pkgs;}
-    );
-
-    overlays = import ./overlays {inherit inputs;};
-
-    nixosConfigurations = {
-      nixos-wsl = mkNixosConfiguration "nixos-wsl" "chxpdotdev";
-    };
-
-    darwinConfigurations = {
-      mbpro = mkDarwinConfiguration "aarch64-darwin" "mbpro" "chxpdotdev";
-    };
-  };
+  description = "A home-manager template providing useful tools & settings for Nix-based development";
 
   inputs = {
-    # Nixpkgs unstable
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    disko.url = "github:nix-community/disko";
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
-
-    ghostty.url = "github:ghostty-org/ghostty";
-    ghostty.inputs.nixpkgs.follows = "nixpkgs";
-
-    home.url = "github:nix-community/home-manager";
-    home.inputs.nixpkgs.follows = "nixpkgs";
-
-    mac-app-util.url = "github:hraban/mac-app-util";
-
-    nix-darwin.url = "github:nix-darwin/nix-darwin";
+    # Principle inputs (updated by `nix run .#update`)
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    nixos-unified.url = "github:srid/nixos-unified";
 
+    # Software inputs
+    disko.url = "github:nix-community/disko";
+    mac-app-util.url = "github:hraban/mac-app-util";
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
-
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
-
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
-    nixos-hardware.url = "github:NixOS/nixos-hardware";
     nixcord.url = "github:kaylorben/nixcord";
-    nixgl.url = "github:nix-community/nixGL";
+    vertex.url = "github:juspay/vertex";
 
-    nixos-wsl.url = "github:nix-community/NixOS-WSL";
-    nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
-
-    nixvim.url = "github:chxpdotdev/nixvim";
+    # Nixvim inputs
+    nixvim.url = "github:nix-community/nixvim";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
+    nixvim.inputs.flake-parts.follows = "flake-parts";
+    git-hooks-nix.url = "github:cachix/git-hooks.nix";
+    pkgs-by-name-for-flake-parts.url = "github:drupol/pkgs-by-name-for-flake-parts";
+    treefmt-nix.url = "github:numtide/treefmt-nix";
 
-    stylix.url = "github:danth/stylix";
-    vscode-server.url = "github:nix-community/nixos-vscode-server";
+    snacks-nvim = {
+      url = "github:folke/snacks.nvim";
+      flake = false;
+    };
+
+    trouble-nvim = {
+      url = "github:folke/trouble.nvim";
+      flake = false;
+    };
 
     # Non-flakes
     homebrew-cask-src.url = "github:homebrew/homebrew-cask";
@@ -158,5 +48,33 @@
 
     sf-mono-liga-bin-src.url = "github:shaunsingh/SFMono-Nerd-Font-Ligaturized";
     sf-mono-liga-bin-src.flake = false;
+
+    # Devshell
+    git-hooks.url = "github:cachix/git-hooks.nix";
+    git-hooks.flake = false;
   };
+
+  outputs = inputs @ {self, ...}:
+    inputs.flake-parts.lib.mkFlake {inherit inputs;} {
+      systems = ["x86_64-linux" "aarch64-linux" "aarch64-darwin"];
+      imports = with builtins;
+        map
+        (fn: ./modules/flake-parts/${fn})
+        (attrNames (readDir ./modules/flake-parts));
+
+      perSystem = {
+        lib,
+        system,
+        ...
+      }: {
+        # Make our overlay available to the devShell
+        # "Flake parts does not yet come with an endorsed module that initializes the pkgs argument.""
+        # So we must do this manually; https://flake.parts/overlays#consuming-an-overlay
+        _module.args.pkgs = import inputs.nixpkgs {
+          inherit system;
+          overlays = lib.attrValues self.overlays;
+          config.allowUnfree = true;
+        };
+      };
+    };
 }

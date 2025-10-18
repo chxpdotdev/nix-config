@@ -1,19 +1,31 @@
-# This file defines overlays
-{inputs}: {
-  # This one brings our custom packages from the 'pkgs' directory
-  additions = final: _prev:
-    import ../pkgs {
-      pkgs = final;
-      inherit inputs;
+{flake, ...}: let
+  inherit (flake) inputs;
+  inherit (inputs) self;
+  packages = self + /packages;
+in
+  self: super: let
+    # Auto-import all packages from the packages directory
+    entries = builtins.readDir packages;
+
+    # Convert directory entries to package definitions
+    makePackage = name: type: let
+      # Remove .nix extension for package name
+      pkgName =
+        if type == "regular" && builtins.match ".*\\.nix$" name != null
+        then builtins.replaceStrings [".nix"] [""] name
+        else name;
+    in {
+      name = pkgName;
+      value = self.callPackage (packages + "/${name}") {inherit inputs;};
     };
 
-  # This one contains whatever you want to overlay
-  # You can change versions, add patches, set compilation flags, anything really.
-  # https://nixos.wiki/wiki/Overlays
-  modifications = _final: prev: {
-    broken = import inputs.nixpkgs {
-      inherit (prev) system;
-      config = prev.config // {allowBroken = true;};
-    };
-  };
-}
+    # Import everything in packages directory
+    packageOverlays =
+      builtins.listToAttrs
+      (builtins.attrValues (builtins.mapAttrs makePackage entries));
+  in
+    packageOverlays
+    // {
+      # External overlays
+      # omnix = inputs.omnix.packages.${self.system}.default;
+    }
