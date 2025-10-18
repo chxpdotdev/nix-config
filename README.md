@@ -6,11 +6,11 @@
 
 # nix-config
 
-This repo includes my NixOS and NixOS-WSL configuration files.
+This repo includes my nix-darwin configuration files.
 
 ## Credits
 
 ### Other configs
-+ [Misterio77/nix-starter-configs](https://github.com/Misterio77/nix-starter-configs)
++ [srid/nixos-config](https://github.com/srid/nixos-config)
 + [moni-dz/nix-config](https://github.com/moni-dz/nix-config)
 + [AlexNabokikh/nix-config](https://github.com/AlexNabokikh/nix-config)
