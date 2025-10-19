@@ -21,6 +21,7 @@
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     nixcord.url = "github:kaylorben/nixcord";
+    proxmox-nixos.url = "github:SaumonNet/proxmox-nixos";
     vscode-server.url = "github:nix-community/nixos-vscode-server";
 
     # Nixvim inputs
@@ -30,24 +31,16 @@
     git-hooks-nix.url = "github:cachix/git-hooks.nix";
     pkgs-by-name-for-flake-parts.url = "github:drupol/pkgs-by-name-for-flake-parts";
     treefmt-nix.url = "github:numtide/treefmt-nix";
-
-    snacks-nvim = {
-      url = "github:folke/snacks.nvim";
-      flake = false;
-    };
-
-    trouble-nvim = {
-      url = "github:folke/trouble.nvim";
-      flake = false;
-    };
+    snacks-nvim.url = "github:folke/snacks.nvim";
+    snacks-nvim.flake = false;
+    trouble-nvim.url = "github:folke/trouble.nvim";
+    trouble-nvim.flake = false;
 
     # Non-flakes
     homebrew-cask-src.url = "github:homebrew/homebrew-cask";
     homebrew-cask-src.flake = false;
-
     homebrew-core-src.url = "github:homebrew/homebrew-core";
     homebrew-core-src.flake = false;
-
     sf-mono-liga-bin-src.url = "github:shaunsingh/SFMono-Nerd-Font-Ligaturized";
     sf-mono-liga-bin-src.flake = false;
 

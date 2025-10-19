@@ -7,7 +7,7 @@ in {
   ];
 
   home = {
-    username = flake.config.volta.username;
+    username = flake.config.me.serverusername;
     stateVersion = "24.11";
   };
 }

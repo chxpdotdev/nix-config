@@ -34,7 +34,7 @@ in {
     };
   };
 
-  myusers = ["chxpdotdev"];
+  myusers = [flake.config.me.username];
 
   nixpkgs.hostPlatform = "aarch64-darwin";
   networking.hostName = "mbpro";

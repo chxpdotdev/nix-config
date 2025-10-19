@@ -12,6 +12,7 @@ in {
     inputs.vscode-server.nixosModules.default
 
     self.nixosModules.default
+    self.nixosModules.proxmox
 
     ./disk-config.nix
     ./hardware-configuration.nix
@@ -22,7 +23,7 @@ in {
     efi.canTouchEfiVariables = true;
   };
 
-  myusers = ["admin"];
+  myusers = [flake.config.me.serverusername];
 
   networking = {
     firewall.allowedTCPPorts = [22];
