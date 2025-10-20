@@ -17,9 +17,9 @@
       };
     };
 
-    discord.enable = false;
+    discord.enable = true;
     dorion.enable = false;
-    vesktop.enable = true;
+    vesktop.enable = false;
 
     extraConfig = {
       enableSplashScreen = false;
