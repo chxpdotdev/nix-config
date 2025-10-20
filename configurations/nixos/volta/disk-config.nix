@@ -1,116 +1,59 @@
 {
   disko.devices = {
     disk = {
-      one = {
+      nvme0 = {
         type = "disk";
         device = "/dev/nvme0n1";
         content = {
           type = "gpt";
           partitions = {
             boot = {
-              size = "500M";
-              type = "EF00";
+              size = "1G";
+              type = "EF00"; # EFI System Partition
               content = {
-                type = "mdraid";
-                name = "boot";
+                type = "filesystem";
+                format = "vfat";
+                mountpoint = "/boot";
               };
             };
-            primary = {
+            lvm = {
               size = "100%";
               content = {
                 type = "lvm_pv";
-                vg = "pool";
+                vg = "vg0";
               };
             };
           };
         };
       };
-      two = {
+
+      nvme1 = {
         type = "disk";
-        device = "/dev/sda";
+        device = "/dev/nvme1n1";
         content = {
           type = "gpt";
           partitions = {
-            boot = {
-              size = "500M";
-              type = "EF00";
-              content = {
-                type = "mdraid";
-                name = "boot";
-              };
-            };
-            primary = {
+            lvm = {
               size = "100%";
               content = {
                 type = "lvm_pv";
-                vg = "pool";
-              };
-            };
-          };
-        };
-      };
-      three = {
-        type = "disk";
-        device = "/dev/sdb";
-        content = {
-          type = "gpt";
-          partitions = {
-            boot = {
-              size = "500M";
-              type = "EF00";
-              content = {
-                type = "mdraid";
-                name = "boot";
-              };
-            };
-            primary = {
-              size = "100%";
-              content = {
-                type = "lvm_pv";
-                vg = "pool";
+                vg = "vg0";
               };
             };
           };
         };
       };
     };
-    mdadm = {
-      boot = {
-        type = "mdadm";
-        level = 1;
-        metadata = "1.0";
-        content = {
-          type = "filesystem";
-          format = "vfat";
-          mountpoint = "/boot";
-          mountOptions = ["umask=0077"];
-        };
-      };
-    };
-    lvm_vg = {
-      pool = {
-        type = "lvm_vg";
-        lvs = {
-          root = {
-            size = "5G";
-            lvm_type = "mirror";
-            content = {
-              type = "filesystem";
-              format = "ext4";
-              mountpoint = "/";
-              mountOptions = [
-                "defaults"
-              ];
-            };
-          };
-          home = {
-            size = "5G";
-            lvm_type = "raid0";
-            content = {
-              type = "filesystem";
-              format = "ext4";
-              mountpoint = "/home";
-            };
+
+    lvm_vg.vg0 = {
+      type = "lvm_vg";
+      lvs = {
+        root = {
+          size = "100%FREE";
+          content = {
+            type = "filesystem";
+            format = "ext4";
+            mountpoint = "/";
           };
         };
       };

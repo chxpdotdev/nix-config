@@ -1,5 +1,5 @@
 {config, ...}: {
   home.packages = [
-    config.nix.package
+    # config.nix.package
   ];
 }

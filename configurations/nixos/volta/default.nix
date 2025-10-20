@@ -33,6 +33,8 @@ in {
 
   i18n.defaultLocale = "en_US.UTF-8";
 
+  nixpkgs.hostPlatform = "x86_64-linux";
+
   services = {
     openssh = {
       ports = [22];
