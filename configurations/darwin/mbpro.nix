@@ -18,6 +18,7 @@ in {
       "chatgpt"
       "ghostty"
       "microsoft-onenote"
+      "orion"
       "proton-mail-bridge"
       "steam"
       "zen"
